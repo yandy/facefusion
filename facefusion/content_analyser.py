@@ -14,6 +14,7 @@ from facefusion.types import Detection, DownloadScope, DownloadSet, ExecutionPro
 from facefusion.vision import detect_video_fps, fit_contain_frame, read_image, read_video_frame
 
 STREAM_COUNTER = 0
+DETECT_NSFW = False
 
 
 @lru_cache()
@@ -153,6 +154,8 @@ def analyse_stream(vision_frame : VisionFrame, video_fps : Fps) -> bool:
 
 
 def analyse_frame(vision_frame : VisionFrame) -> bool:
+	if not DETECT_NSFW:
+		return False
 	return detect_nsfw(vision_frame)
 
 
